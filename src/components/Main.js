@@ -1,5 +1,6 @@
 import React from 'react';
 import api from '../utils/api.js';
+import Card from './Card.js';
 import initialAvatar from '../images/profile/avatar-cousteau.jpg';
 
 function Main(props) {
@@ -17,11 +18,10 @@ function Main(props) {
 
       const cardList = initialCardList.map((card) => ({
         id: card._id,
-        likes: card.likes.length,
         name: card.name,
-        alt: card.name,
         src: card.link,
-
+        alt: card.name,
+        likes: card.likes.length
       }));
       setCards(cardList);
     });
@@ -48,22 +48,8 @@ function Main(props) {
       <section className="elements section"></section>
 
       <section className="elements section">
-        {cards.map(({ id, ...card }) => (
-                           
-          < div className = 'element' key = {id}>
-            <div className='element__container'>
-              <button type='button' className='element__btn-trash'></button>
-              <img className='element__img' src={card.src} alt={card.alt} />
-            </div>
-            <div className='element__info'>
-              <h2 className='element__title'>{card.name}</h2>
-              <div className='element__like-group'>
-                <button type='button' className='element__btn-like'></button>
-                <p className='element__like-sum'>{card.likes}</p>
-              </div>
-            </div>
-          </div>
-        )
+        {cards.map((card) =>
+          <Card key={card.id} card={card} />
         )}
       </section>
     </main>
