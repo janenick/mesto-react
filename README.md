@@ -7,6 +7,6 @@ JS
 React
 
 
-[Ссылка на проект](https://janenick.github.io/)
+[Ссылка на проект](https://janenick.github.io/mesto-react/)
 
 **Автор:** Никитина Евгения
