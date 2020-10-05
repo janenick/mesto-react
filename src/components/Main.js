@@ -24,8 +24,9 @@ function Main(props) {
         likes: card.likes.length
       }));
       setCards(cardList);
-    });
-  }, [userName, userDescription, userAvatar, cards]);
+    })
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <main className="content page__content">
@@ -49,7 +50,7 @@ function Main(props) {
 
       <section className="elements section">
         {cards.map((card) =>
-          <Card key={card.id} card={card} />
+          <Card key={card.id} card={card} onCardClick={props.onCardClick} />
         )}
       </section>
     </main>

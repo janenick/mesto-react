@@ -6,32 +6,44 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
 function App() {
-  let isEditAvatarPopupOpen = false;
-  let isEditProfilePopupOpen = false;
-  let isAddPlacePopupOpen = false;
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState();
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState();
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState();
+  const [isImageCardPopupOpen, setIsImageCardPopupOpen] = React.useState();
+  const [isSubmitPopupOpen, setIsSubmitPopupOpen] = React.useState();
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   function handleEditAvatarClick() {
-    console.log('handleEditAvatarClick');
-    const avatarPopup = document.querySelector('.popup_type_avatar');
-    avatarPopup.classList.add('popup_opened');
+    setIsEditAvatarPopupOpen(true);
   }
+
 
   function handleEditProfileClick() {
-    console.log('handleEditProfileClick');
-    const infoPopup = document.querySelector('.popup_type_profile');
-    infoPopup.classList.add('popup_opened');
+    setIsEditProfilePopupOpen(true);
   }
+
 
   function handleAddPlaceClick() {
-    console.log('handleAddPlaceClick');
-    const popupAdd = document.querySelector('.popup_type_new-place');
-    popupAdd.classList.add('popup_opened');
+    setAddPlacePopupOpen(true);
   }
 
-  function closeAllPopups() {
-    const allPopups = Array.from(document.querySelectorAll('.popup'));
-    allPopups.map(popup => popup.classList.remove('popup_opened'));
+
+  function handleCardClick(card) {
+    setSelectedCard({...card});
+    setIsImageCardPopupOpen(true);
   }
+
+
+  function closeAllPopups() {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setAddPlacePopupOpen(false);
+    setIsImageCardPopupOpen(false);
+    setIsSubmitPopupOpen(false);
+
+    setSelectedCard({});
+  }
+
 
   return (
     <body className='page'>
@@ -41,6 +53,7 @@ function App() {
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
+          onCardClick={handleCardClick}
         />
 
         <Footer />
@@ -93,14 +106,15 @@ function App() {
           name='delete-submit'
           title='Вы уверены?'
           submitName='Да'
-          isOpen={false}
+          isOpen={isSubmitPopupOpen}
           onClose={closeAllPopups}>
         </PopupWithForm>
 
         <ImagePopup
           name='img'
-          isOpen={false}
-          onClose={closeAllPopups}>
+          isOpen={isImageCardPopupOpen}
+          onClose={closeAllPopups}
+          card={selectedCard}>
         </ImagePopup>
 
 
