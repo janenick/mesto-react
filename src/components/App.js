@@ -46,7 +46,7 @@ function App() {
 
 
   return (
-    <body className='page'>
+    <div className='page'>
       <div className='page__container'>
         <Header />
         <Main
@@ -134,7 +134,7 @@ function App() {
           </div>
         </template>
       </div>
-    </body>
+    </div>
   );
 }
 
