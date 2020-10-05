@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5595acdf.chunk.css",
+    "main.js": "/static/js/main.5e627b7a.chunk.js",
+    "main.js.map": "/static/js/main.5e627b7a.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.e8402bce.js",
+    "runtime-main.js.map": "/static/js/runtime-main.e8402bce.js.map",
+    "static/js/2.5b922a99.chunk.js": "/static/js/2.5b922a99.chunk.js",
+    "static/js/2.5b922a99.chunk.js.map": "/static/js/2.5b922a99.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.ec5fa958bbbf0e18ffc1133054fae962.js": "/precache-manifest.ec5fa958bbbf0e18ffc1133054fae962.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.5595acdf.chunk.css.map": "/static/css/main.5595acdf.chunk.css.map",
+    "static/js/2.5b922a99.chunk.js.LICENSE.txt": "/static/js/2.5b922a99.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/static/media/trash.9c3b03ae.svg",
+    "static/media/avatar-cousteau.jpg": "/static/media/avatar-cousteau.256a3224.jpg",
+    "static/media/header-logo.svg": "/static/media/header-logo.855a8c98.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e8402bce.js",
+    "static/js/2.5b922a99.chunk.js",
+    "static/css/main.5595acdf.chunk.css",
+    "static/js/main.5e627b7a.chunk.js"
+  ]
+}
