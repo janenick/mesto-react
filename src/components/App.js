@@ -6,11 +6,11 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
 function App() {
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState();
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState();
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState();
-  const [isImageCardPopupOpen, setIsImageCardPopupOpen] = React.useState();
-  const [isSubmitPopupOpen, setIsSubmitPopupOpen] = React.useState();
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+  const [isImageCardPopupOpen, setIsImageCardPopupOpen] = React.useState(false);
+  const [isSubmitPopupOpen, setIsSubmitPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
 
   function handleEditAvatarClick() {
@@ -116,23 +116,6 @@ function App() {
           onClose={closeAllPopups}
           card={selectedCard}>
         </ImagePopup>
-
-
-        <template id='element-template' className='element-template'>
-          <div className='element'>
-            <div className='element__container'>
-              <button type='button' className='element__btn-trash'></button>
-              <img className='element__img' src='#' alt='' />
-            </div>
-            <div className='element__info'>
-              <h2 className='element__title'></h2>
-              <div className='element__like-group'>
-                <button type='button' className='element__btn-like'></button>
-                <p className='element__like-sum'></p>
-              </div>
-            </div>
-          </div>
-        </template>
       </div>
     </div>
   );
