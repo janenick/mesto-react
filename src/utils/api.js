@@ -92,6 +92,16 @@ class Api {
       .then(_handleError);
   }
 
+  changeLikeCardStatus(id, isntLike) {
+    if (isntLike) {
+      return this.putLike(id);
+    }
+    else {
+      
+      return this.deleteLike(id);
+    }
+  }
+
   getAppInfo() {
     return Promise.all([this.getUserInfo(), this.getCardsFromServer()]);
   }
