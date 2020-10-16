@@ -29,8 +29,8 @@ const Card = (props) => {
     props.onCardLike(card);
   }
 
-  function handleDeleteClick() {
-    props.onCardDelete(card);
+  function handleDeleteClick(evt) {
+    props.onCardDelete(evt, card);
   }
 
   return (< div className='element'>

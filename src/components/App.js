@@ -58,7 +58,8 @@ function App() {
       });
   }
 
-  function handleCardDelete(card) {
+  function handleCardDelete(event, card) {
+    event.stopPropagation();
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.removeCard(card._id).then(() => {
       // Создаем копию массива, исключив из него удалённую карточку

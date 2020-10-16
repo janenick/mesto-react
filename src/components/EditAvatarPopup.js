@@ -6,7 +6,7 @@ function EditAvatarPopup(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-
+    e.target.reset();
     props.onUpdateAvatar({
       avatar: avatarRef.current/* Значение инпута, полученное с помощью рефа */,
     });
