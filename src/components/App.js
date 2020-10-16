@@ -17,6 +17,8 @@ function App() {
   const [isSubmitPopupOpen, setIsSubmitPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
 
+  const [cards, setCards] = React.useState([]);
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -38,6 +40,29 @@ function App() {
     setIsImageCardPopupOpen(true);
   }
 
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
+      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+      // Обновляем стейт
+      setCards(newCards);
+    });
+  }
+
+  function handleCardDelete(card) {
+    console.log("del card: ", card._id);
+    /*// Отправляем запрос в API и получаем обновлённые данные карточки
+    api.removeCard(card._id).then((newCard) => {
+      // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
+      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+      // Обновляем стейт
+      setCards(newCards);
+    });*/
+  }
 
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
@@ -58,6 +83,14 @@ function App() {
       .catch((err) => console.error(err));
   }, []);
 
+  React.useEffect(() => {
+    api.getCardsFromServer().then((initialCardList) => {
+      const cardList = initialCardList.map(card => card);
+      setCards(cardList);
+    })
+      .catch((err) => console.error(err));
+  }, []);
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -65,10 +98,13 @@ function App() {
         <div className='page__container'>
           <Header />
           <Main
+            cards={cards}
             onEditAvatar={handleEditAvatarClick}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
             onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
           />
 
           <Footer />

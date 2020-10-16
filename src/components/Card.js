@@ -37,7 +37,7 @@ const Card = (props) => {
   
   return (< div className='element'>
     <div className='element__container' onClick={handleClick}>
-      <button type='button' className={cardDeleteButtonClassName} onClick={handleDeleteClick}></button>
+      {isOwn && <button type='button' className={cardDeleteButtonClassName} onClick={handleDeleteClick}></button>}
       <img className='element__img' src={card.link} alt={card.alt} />
     </div>
     <div className='element__info'>
