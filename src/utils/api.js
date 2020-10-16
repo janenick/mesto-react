@@ -97,7 +97,7 @@ class Api {
       return this.putLike(id);
     }
     else {
-      
+
       return this.deleteLike(id);
     }
   }

@@ -4,11 +4,9 @@ import { CurrentUserContext } from '../contexts/currentUserContext';
 const Card = (props) => {
   const currentUser = React.useContext(CurrentUserContext);
   const card = props.card;
- 
+
   // Определяем, являемся ли мы владельцем текущей карточки
   const isOwn = card.owner._id === currentUser._id;
-  /*console.log('card.owner', card.owner, card.owner._id);
-  console.log('card.id', card._id, card.link, card);*/
   // Создаём переменную, которую после зададим в `className` для кнопки удаления
   const cardDeleteButtonClassName = (
     `element__btn-trash ${isOwn ? 'element__btn-trash_active' : ''}`
@@ -32,9 +30,9 @@ const Card = (props) => {
   }
 
   function handleDeleteClick() {
-   props.onCardDelete(card);
+    props.onCardDelete(card);
   }
-  
+
   return (< div className='element'>
     <div className='element__container' onClick={handleClick}>
       {isOwn && <button type='button' className={cardDeleteButtonClassName} onClick={handleDeleteClick}></button>}

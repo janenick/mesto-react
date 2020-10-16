@@ -4,8 +4,11 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 import { CurrentUserContext } from '../contexts/currentUserContext';
 import api from '../utils/api.js';
+import { renderError } from '../utils/utils.js';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -35,7 +38,6 @@ function App() {
 
 
   function handleCardClick(card) {
-    console.log('handleCardClick:card', card);
     setSelectedCard({ ...card });
     setIsImageCardPopupOpen(true);
   }
@@ -50,19 +52,46 @@ function App() {
       const newCards = cards.map((c) => c._id === card._id ? newCard : c);
       // Обновляем стейт
       setCards(newCards);
-    });
+    })
+      .catch((err) => {
+        renderError(`Ошибка: ${err}`);
+      });
   }
 
   function handleCardDelete(card) {
-    console.log("del card: ", card._id);
-    /*// Отправляем запрос в API и получаем обновлённые данные карточки
-    api.removeCard(card._id).then((newCard) => {
-      // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
-      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.removeCard(card._id).then(() => {
+      // Создаем копию массива, исключив из него удалённую карточку
+      const newCards = cards.filter((c) => c._id !== card._id);
       // Обновляем стейт
       setCards(newCards);
-    });*/
+    })
+      .catch((err) => {
+        renderError(`Ошибка: ${err}`);
+      });
   }
+
+  function handleUpdateUser({ name, about }) {
+    api.changeUserInfo({ name, about }).then(data => {
+      setCurrentUser(data);
+    })
+      .catch((err) => {
+        renderError(`Ошибка: ${err}`);
+      });
+    closeAllPopups();
+  }
+
+
+  function handleUpdateAvatar({ avatar }) {
+    api.changeAvatar({ avatar }).then(data => {
+      setCurrentUser(data);
+    })
+      .catch((err) => {
+        renderError(`Ошибка: ${err}`);
+      });
+    closeAllPopups();
+  }
+
 
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
@@ -109,21 +138,11 @@ function App() {
 
           <Footer />
 
-          <PopupWithForm
-            name='profile'
-            title='Редактировать профиль'
-            submitName='Сохранить'
+          <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}>
-            <label className='popup__form-field'>
-              <input id='name-input' name='popup__input-name' type='text' placeholder='Имя' className='popup__input popup__input_type_name' required minLength='2' maxLength='40' />
-              <span id='name-input-error' className='popup__input-error'></span>
-            </label>
-            <label className='popup__form-field'>
-              <input id='status-input' name='popup__input-status' type='text' placeholder='Вид деятельности' className='popup__input popup__input_type_status' required minLength='2' maxLength='200' />
-              <span id='status-input-error' className='popup__input-error'></span>
-            </label>
-          </PopupWithForm>
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+          />
 
           <PopupWithForm
             name='new-place'
@@ -141,17 +160,11 @@ function App() {
             </label>
           </PopupWithForm>
 
-          <PopupWithForm
-            name='avatar'
-            title='Обновить аватар'
-            submitName='Сохранить'
+          <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}>
-            <label className='popup__form-field'>
-              <input id='avatar-input' name='popup__input-avatar' type='url' placeholder='Ссылка на картинку' className='popup__input popup__input_type_avatar' required />
-              <span id='avatar-input-error' className='popup__input-error'></span>
-            </label>
-          </PopupWithForm>
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
+          />
 
           <PopupWithForm
             name='delete-submit'
