@@ -6,6 +6,7 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 import { CurrentUserContext } from '../contexts/currentUserContext';
 import api from '../utils/api.js';
 import { renderError } from '../utils/utils.js';
@@ -93,6 +94,18 @@ function App() {
     closeAllPopups();
   }
 
+  function handleAddPlaceSubmit({ name, link }) {
+    api.addNewCard({ name, link }).then((newCard) => {
+
+      // Обновляем стейт карточек
+      setCards([...cards, newCard]);
+    })
+      .catch((err) => {
+        renderError(`Ошибка: ${err}`);
+      });
+    closeAllPopups();
+  }
+
 
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
@@ -145,26 +158,17 @@ function App() {
             onUpdateUser={handleUpdateUser}
           />
 
-          <PopupWithForm
-            name='new-place'
-            title='Новое место'
-            submitName='Сохранить'
-            isOpen={isAddPlacePopupOpen}
-            onClose={closeAllPopups}>
-            <label className='popup__form-field'>
-              <input id='new-place-name-input' name='popup__input-new-place-name' type='text' placeholder='Название' className='popup__input popup__input_type_new-place-name' required minLength='1' maxLength='30' />
-              <span id='new-place-name-input-error' className='popup__input-error'></span>
-            </label>
-            <label className='popup__form-field'>
-              <input id='new-place-img-input' name='popup__input-new-place-img' type='url' placeholder='Ссылка на картинку' className='popup__input popup__input_type_new-place-img' required />
-              <span id='new-place-img-input-error' className='popup__input-error'></span>
-            </label>
-          </PopupWithForm>
 
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
+          />
+
+          <AddPlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            onAddPlace={handleAddPlaceSubmit}
           />
 
           <PopupWithForm

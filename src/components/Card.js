@@ -33,20 +33,22 @@ const Card = (props) => {
     props.onCardDelete(evt, card);
   }
 
-  return (< div className='element'>
-    <div className='element__container' onClick={handleClick}>
-      {isOwn && <button type='button' className={cardDeleteButtonClassName} onClick={handleDeleteClick}></button>}
-      <img className='element__img' src={card.link} alt={card.alt} />
-    </div>
-    <div className='element__info'>
-      <h2 className='element__title'>{card.name}</h2>
-      <div className='element__like-group'>
-        <button type='button' className={cardLikeButtonClassName} onClick={handleLikeClick}></button>
-        <p className='element__like-sum'>{card.likes.length}</p>
+
+  return (
+    < div className='element'>
+      <div className='element__container' onClick={handleClick}>
+        {isOwn && <button type='button' className={cardDeleteButtonClassName} onClick={handleDeleteClick}></button>}
+        <img className='element__img' src={card.link} alt={card.alt} />
+      </div>
+      <div className='element__info'>
+        <h2 className='element__title'>{card.name}</h2>
+        <div className='element__like-group'>
+          <button type='button' className={cardLikeButtonClassName} onClick={handleLikeClick}></button>
+          <p className='element__like-sum'>{card.likes.length}</p>
+        </div>
       </div>
     </div>
-  </div>
-  );
-};
+  )
+}
 
 export default Card;
