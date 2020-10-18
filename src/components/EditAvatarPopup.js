@@ -6,15 +6,10 @@ function EditAvatarPopup(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    e.target.reset();
     props.onUpdateAvatar({
-      avatar: avatarRef.current/* Значение инпута, полученное с помощью рефа */,
+      avatar: avatarRef.current.value/* Значение инпута, полученное с помощью рефа */,
     });
-  }
-
-
-  function handleAvatarChange(event) {
-    avatarRef.current = event.target.value;
+    e.target.reset();
   }
 
 
@@ -28,7 +23,7 @@ function EditAvatarPopup(props) {
       onSubmit={handleSubmit}
     >
       <label className='popup__form-field'>
-        <input id='avatar-input' name='popup__input-avatar' ref={avatarRef} onChange={handleAvatarChange} type='url' placeholder='Ссылка на картинку' className='popup__input popup__input_type_avatar' required />
+        <input id='avatar-input' name='popup__input-avatar' ref={avatarRef} type='url' placeholder='Ссылка на картинку' className='popup__input popup__input_type_avatar' required />
         <span id='avatar-input-error' className='popup__input-error'></span>
       </label>
     </PopupWithForm>

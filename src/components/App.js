@@ -76,34 +76,35 @@ function App() {
   function handleUpdateUser({ name, about }) {
     api.changeUserInfo({ name, about }).then(data => {
       setCurrentUser(data);
+      closeAllPopups();
     })
       .catch((err) => {
         renderError(`Ошибка: ${err}`);
       });
-    closeAllPopups();
+
   }
 
 
   function handleUpdateAvatar({ avatar }) {
     api.changeAvatar({ avatar }).then(data => {
       setCurrentUser(data);
+      closeAllPopups();
     })
       .catch((err) => {
         renderError(`Ошибка: ${err}`);
       });
-    closeAllPopups();
   }
 
   function handleAddPlaceSubmit({ name, link }) {
     api.addNewCard({ name, link }).then((newCard) => {
 
       // Обновляем стейт карточек
-      setCards([...cards, newCard]);
+      setCards([newCard, ...cards]);
+      closeAllPopups();
     })
       .catch((err) => {
         renderError(`Ошибка: ${err}`);
       });
-    closeAllPopups();
   }
 
 
